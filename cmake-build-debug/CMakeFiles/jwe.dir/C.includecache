@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/zhangzhaobo/CLionProjects/jwe/src/jwe.c
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+math.h
+-
+pthread.h
+-
+locale.h
+-
+wchar.h
+-
+
