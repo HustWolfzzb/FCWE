@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
-project(jwe)
+project(FCWE)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(jwe src/jwe.c)
+add_executable(FCWE src/FCWE.c)

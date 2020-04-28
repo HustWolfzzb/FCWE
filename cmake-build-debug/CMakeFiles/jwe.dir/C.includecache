@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/Users/zhangzhaobo/CLionProjects/jwe/src/jwe.c
+/Users/zhangzhaobo/CLionProjects/FCWE/src/FCWE.c
 stdio.h
 -
 stdlib.h

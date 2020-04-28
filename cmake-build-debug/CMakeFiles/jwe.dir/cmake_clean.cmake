@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/jwe.dir/src/jwe.c.o"
+  "CMakeFiles/jwe.dir/src/FCWE.c.o"
   "jwe"
   "jwe.pdb"
 )

@@ -48,10 +48,10 @@ RM = /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/zhangzhaobo/CLionProjects/jwe
+CMAKE_SOURCE_DIR = /Users/zhangzhaobo/CLionProjects/FCWE
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/zhangzhaobo/CLionProjects/jwe/cmake-build-debug
+CMAKE_BINARY_DIR = /Users/zhangzhaobo/CLionProjects/FCWE/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/zhangzhaobo/CLionProjects/jwe/cmake-build-debug/CMakeFiles /Users/zhangzhaobo/CLionProjects/jwe/cmake-build-debug/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/zhangzhaobo/CLionProjects/FCWE/cmake-build-debug/CMakeFiles /Users/zhangzhaobo/CLionProjects/FCWE/cmake-build-debug/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/zhangzhaobo/CLionProjects/jwe/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/zhangzhaobo/CLionProjects/FCWE/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -111,44 +111,44 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named jwe
+# Target rules for targets named FCWE
 
 # Build rule for target.
-jwe: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 jwe
-.PHONY : jwe
+FCWE: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 FCWE
+.PHONY : FCWE
 
 # fast build rule for target.
-jwe/fast:
-	$(MAKE) -f CMakeFiles/jwe.dir/build.make CMakeFiles/jwe.dir/build
-.PHONY : jwe/fast
+FCWE/fast:
+	$(MAKE) -f CMakeFiles/FCWE.dir/build.make CMakeFiles/FCWE.dir/build
+.PHONY : FCWE/fast
 
-src/jwe.o: src/jwe.c.o
+src/FCWE.o: src/FCWE.c.o
 
-.PHONY : src/jwe.o
+.PHONY : src/FCWE.o
 
 # target to build an object file
-src/jwe.c.o:
-	$(MAKE) -f CMakeFiles/jwe.dir/build.make CMakeFiles/jwe.dir/src/jwe.c.o
-.PHONY : src/jwe.c.o
+src/FCWE.c.o:
+	$(MAKE) -f CMakeFiles/FCWE.dir/build.make CMakeFiles/FCWE.dir/src/FCWE.c.o
+.PHONY : src/FCWE.c.o
 
-src/jwe.i: src/jwe.c.i
+src/FCWE.i: src/FCWE.c.i
 
-.PHONY : src/jwe.i
+.PHONY : src/FCWE.i
 
 # target to preprocess a source file
-src/jwe.c.i:
-	$(MAKE) -f CMakeFiles/jwe.dir/build.make CMakeFiles/jwe.dir/src/jwe.c.i
-.PHONY : src/jwe.c.i
+src/FCWE.c.i:
+	$(MAKE) -f CMakeFiles/FCWE.dir/build.make CMakeFiles/FCWE.dir/src/FCWE.c.i
+.PHONY : src/FCWE.c.i
 
-src/jwe.s: src/jwe.c.s
+src/FCWE.s: src/FCWE.c.s
 
-.PHONY : src/jwe.s
+.PHONY : src/FCWE.s
 
 # target to generate assembly for a file
-src/jwe.c.s:
-	$(MAKE) -f CMakeFiles/jwe.dir/build.make CMakeFiles/jwe.dir/src/jwe.c.s
-.PHONY : src/jwe.c.s
+src/FCWE.c.s:
+	$(MAKE) -f CMakeFiles/FCWE.dir/build.make CMakeFiles/FCWE.dir/src/FCWE.c.s
+.PHONY : src/FCWE.c.s
 
 # Help Target
 help:
@@ -158,10 +158,10 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... jwe"
-	@echo "... src/jwe.o"
-	@echo "... src/jwe.i"
-	@echo "... src/jwe.s"
+	@echo "... FCWE"
+	@echo "... src/FCWE.o"
+	@echo "... src/FCWE.i"
+	@echo "... src/FCWE.s"
 .PHONY : help
 
 
