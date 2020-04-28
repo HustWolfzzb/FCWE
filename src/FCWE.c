@@ -64,13 +64,11 @@ char output_word[MAX_STRING], output_char[MAX_STRING], output_fourcorner[MAX_STR
 struct vocab_word *vocab;
 struct char_fourcorner char2fourcorner[CHAR_SIZE];
 struct fourcorners *fourcorner_array;
-int binary = 0, cbow = 1, debug_mode = 2, window = 5, min_count = 5, iter = 5, num_threads = 1, min_reduce = 1;
-int join_type = 1;   // 1 :  sum loss  2  : sum context
-int average_sum = 1; // 1: use average operation to compose the context, 0, use sum to compose the context
+int binary = 0, debug_mode = 2, window = 5, min_count = 5, iter = 100, num_threads = 16, min_reduce = 1;
 int *vocab_hash;
 long long vocab_max_size = 1000, vocab_size = 0, fourcorner_max_size = FOURCORNER_SIZE, fourcorner_size = 0, layer1_size = 200;
 long long train_words = 0, word_count_actual = 0, file_size = 0;
-real alpha = 0.025, starting_alpha, sample = 0;
+real alpha = 0.025, starting_alpha, sample = 1e-4;
 //分别对应：词的向量，负采样词的向量，sigmoid函数的近似计算表,字符的向量,四角代码的向量,
 real *synword, *syn1neg, *expTable, *synchar, *synfourcorner;
 clock_t start;
@@ -506,15 +504,14 @@ void *TrainModelThread(void *id) {
         }
 
         if (cw) {
-            if (average_sum == 1) {       // the context is represented by the average of the surrounding vectors
-                for (c = 0; c < layer1_size; c++) {
-                    neuword[c] /= cw;
-                    // 比word2vec多出来的部分
-                    if (char_list_cnt > 0)
-                        neuchar[c] /= char_list_cnt;
-                    if (fourcorner_list_cnt > 0)
-                        neufourcorner[c] /= fourcorner_list_cnt;
-                }
+           // the context is represented by the average of the surrounding vectors
+            for (c = 0; c < layer1_size; c++) {
+                neuword[c] /= cw;
+                // 比word2vec多出来的部分
+                if (char_list_cnt > 0)
+                    neuchar[c] /= char_list_cnt;
+                if (fourcorner_list_cnt > 0)
+                    neufourcorner[c] /= fourcorner_list_cnt;
             }
             //删除了关于huffman的部分，直接采用负采样
             // negative sampling
@@ -534,59 +531,42 @@ void *TrainModelThread(void *id) {
                 l2 = target * layer1_size;
                 f1 = 0, f2 = 0, f3 = 0, g1 = 0, g2 = 0, g3 = 0;
                 // back propagate      output  -->   hidden
-                if (join_type == 1) {    // sum loss composition model
-                    for (c = 0; c < layer1_size; c++) {
-                        f1 += neuword[c] * syn1neg[c + l2];
-                        f2 += neuchar[c] * syn1neg[c + l2];
-                        f3 += neufourcorner[c] * syn1neg[c + l2];
-                    }
-                    if (f1 > MAX_EXP)
-                        g1 = (label - 1) * alpha;
-                    else if (f1 < -MAX_EXP)
-                        g1 = (label - 0) * alpha;
-                    else
-                        g1 = (label - expTable[(int) ((f1 + MAX_EXP) * (EXP_TABLE_SIZE / MAX_EXP / 2))]) * alpha;
-                    if (f2 > MAX_EXP)
-                        g2 = (label - 1) * alpha;
-                    else if (f2 < -MAX_EXP)
-                        g2 = (label - 0) * alpha;
-                    else
-                        g2 = (label - expTable[(int) ((f2 + MAX_EXP) * (EXP_TABLE_SIZE / MAX_EXP / 2))]) * alpha;
-                    if (f3 > MAX_EXP)
-                        g3 = (label - 1) * alpha;
-                    else if (f3 < -MAX_EXP)
-                        g3 = (label - 0) * alpha;
-                    else
-                        g3 = (label - expTable[(int) ((f3 + MAX_EXP) * (EXP_TABLE_SIZE / MAX_EXP / 2))]) * alpha;
-                    // compute the gradients of neurons
-                    //累积误差梯度
-                    for (c = 0; c < layer1_size; c++) {
-                        neuword_grad[c] += g1 * syn1neg[c + l2];
-                        neuchar_grad[c] += g2 * syn1neg[c + l2];
-                        neufourcorner_grad[c] += g3 * syn1neg[c + l2];
-                    }
-                    //参数向量更新
-                    //update syn1neg
-                    for (c = 0; c < layer1_size; c++)
-                        syn1neg[c + l2] += g1 * neuword[c] + g2 * neuchar[c] + g3 * neufourcorner[c];
-                } else if (join_type == 2) { // average context composition model
-                    real f = 0, g = 0;
-                    for (c = 0; c < layer1_size; c++)
-                        f += (neuword[c] + neuchar[c] + neufourcorner[c]) * syn1neg[c + l2];
-                    if (f > MAX_EXP)
-                        g = (label - 1) * alpha;
-                    else if (f < -MAX_EXP)
-                        g = (label - 0) * alpha;
-                    else
-                        g = (label - expTable[(int) ((f + MAX_EXP) * (EXP_TABLE_SIZE / MAX_EXP / 2))]) * alpha;
-                    for (c = 0; c < layer1_size; c++) {
-                        neuword_grad[c] += g * syn1neg[c + l2];
-                        neufourcorner_grad[c] += g * syn1neg[c + l2];
-                        neuchar_grad[c] += g * syn1neg[c + l2];
-                    }
-                    for (c = 0; c < layer1_size; c++)
-                        syn1neg[c + l2] += g * (neuword[c] + neuchar[c] + neufourcorner[c]);
+                // sum loss composition model
+                for (c = 0; c < layer1_size; c++) {
+                    f1 += neuword[c] * syn1neg[c + l2];
+                    f2 += neuchar[c] * syn1neg[c + l2];
+                    f3 += neufourcorner[c] * syn1neg[c + l2];
                 }
+                if (f1 > MAX_EXP)
+                    g1 = (label - 1) * alpha;
+                else if (f1 < -MAX_EXP)
+                    g1 = (label - 0) * alpha;
+                else
+                    g1 = (label - expTable[(int) ((f1 + MAX_EXP) * (EXP_TABLE_SIZE / MAX_EXP / 2))]) * alpha;
+                if (f2 > MAX_EXP)
+                    g2 = (label - 1) * alpha;
+                else if (f2 < -MAX_EXP)
+                    g2 = (label - 0) * alpha;
+                else
+                    g2 = (label - expTable[(int) ((f2 + MAX_EXP) * (EXP_TABLE_SIZE / MAX_EXP / 2))]) * alpha;
+                if (f3 > MAX_EXP)
+                    g3 = (label - 1) * alpha;
+                else if (f3 < -MAX_EXP)
+                    g3 = (label - 0) * alpha;
+                else
+                    g3 = (label - expTable[(int) ((f3 + MAX_EXP) * (EXP_TABLE_SIZE / MAX_EXP / 2))]) * alpha;
+                // compute the gradients of neurons
+                //累积误差梯度
+                for (c = 0; c < layer1_size; c++) {
+                    neuword_grad[c] += g1 * syn1neg[c + l2];
+                    neuchar_grad[c] += g2 * syn1neg[c + l2];
+                    neufourcorner_grad[c] += g3 * syn1neg[c + l2];
+                }
+                //参数向量更新
+                //update syn1neg
+                for (c = 0; c < layer1_size; c++)
+                    syn1neg[c + l2] += g1 * neuword[c] + g2 * neuchar[c] + g3 * neufourcorner[c];
+
             }
             // back propagate   hidden -> input
             // 更新上下文几个词的向量
@@ -601,30 +581,21 @@ void *TrainModelThread(void *id) {
                     if (last_word == -1)
                         continue;
                     for (c = 0; c < layer1_size; c++) {
-                        if (average_sum == 1)
-                            synword[c + last_word * layer1_size] += neuword_grad[c] / cw;
-                        else
-                            synword[c + last_word * layer1_size] += neuword_grad[c];
+                        synword[c + last_word * layer1_size] += neuword_grad[c] / cw;
                     }
                 }
             //更新上下文几个字符的向量
             for (a = 0; a < char_list_cnt; a++) {
                 char_id = char_id_list[a];
                 for (c = 0; c < layer1_size; c++) {
-                    if (average_sum == 1)
-                        synchar[c + char_id * layer1_size] += neuchar_grad[c] / char_list_cnt;
-                    else
-                        synchar[c + char_id * layer1_size] += neuchar_grad[c];
+                    synchar[c + char_id * layer1_size] += neuchar_grad[c] / char_list_cnt;
                 }
             }
             //更新上下文几个子字符的向量
             for (a = 0; a < fourcorner_list_cnt; a++) {
                 fourcorner_id = fourcorner_id_list[a];
                 for (c = 0; c < layer1_size; c++) {
-                    if (average_sum == 1)
-                        synfourcorner[c + fourcorner_id * layer1_size] += neufourcorner_grad[c] / fourcorner_list_cnt;
-                    else
-                        synfourcorner[c + fourcorner_id * layer1_size] += neufourcorner_grad[c];
+                    synfourcorner[c + fourcorner_id * layer1_size] += neufourcorner_grad[c] / fourcorner_list_cnt;
                 }
             }
         }
