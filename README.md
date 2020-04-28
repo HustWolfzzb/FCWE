@@ -5,6 +5,7 @@ Joint Embeddings of Chinese Words, Characters, and Four Corner Components
 ## [Four Corner Method](https://en.wikipedia.org/wiki/Four-Corner_Method) ##
 
 * Traditional	 	
+
 	一橫二垂三點捺，
 	點下帶橫變零頭，
 	叉四插五方塊六，
@@ -12,7 +13,8 @@ Joint Embeddings of Chinese Words, Characters, and Four Corner Components
 
 -----
 
-* Simplified	 	
+* Simplified	 
+	
     一横二垂三点捺，
     点下带横变零头，
     叉四插五方块六，
@@ -20,7 +22,8 @@ Joint Embeddings of Chinese Words, Characters, and Four Corner Components
 
 -----
 
-* Pinyin	 	
+* Pinyin	 
+	
     Yī héng, èr chuí, sān diǎn, nà;
     Diǎn xià dài héng, biàn líng tou;
     Chǎ sì, chā wǔ, fāng kuài liù;
@@ -29,6 +32,7 @@ Joint Embeddings of Chinese Words, Characters, and Four Corner Components
 -----
 
 * Meaning
+
     1 for horizontal, 2 vertical, 3 is a dot;
     a dot over a horizontal, or already another corner, is 0;
     crossing is 4, crossing more than one is 5, a box is 6;
