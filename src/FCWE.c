@@ -60,7 +60,7 @@ struct fourcorners{
 
 
 char train_file[MAX_STRING], fourcorner_file[MAX_STRING],char2fourcorner_file[MAX_STRING];
-char output_word[MAX_STRING], output_char[MAX_STRING], output_fourcorner[MAX_STRING];
+char output_word[MAX_STRING];
 struct vocab_word *vocab;
 struct char_fourcorner char2fourcorner[CHAR_SIZE];
 struct fourcorners *fourcorner_array;
@@ -647,40 +647,6 @@ void TrainModel(){
     }
     fclose(fo);
     wchar_t ch[10];
-    if (strlen(output_char)){
-        fo = fopen(output_char, "wb");
-        if (fo == NULL){
-            fprintf(stderr, "Cannot open %s: permission denied\n", output_char);
-        }
-        fprintf(fo, "%lld %lld\n", CHAR_SIZE, layer1_size);
-        for (a = 0; a < CHAR_SIZE; a++){
-            ch[0] = MIN_CHINESE + a;
-            ch[1] = 0;
-            fprintf(fo, "%ls\t", ch);
-            if (binary)
-                for (b = 0; b < layer1_size; b++) fwrite(&synchar[a * layer1_size + b], sizeof(real), 1, fo);
-            else
-                for (b = 0; b < layer1_size; b++) fprintf(fo, "%lf ", synchar[a * layer1_size + b]);
-            fprintf(fo, "\n");
-        }
-        fclose(fo);
-    }
-    if (strlen(output_fourcorner)){
-        fo = fopen(output_fourcorner, "wb");
-        if (fo == NULL){
-            fprintf(stderr, "Cannot open %s: permission denied\n", output_fourcorner);
-        }
-        fprintf(fo, "%lld %lld\n", fourcorner_size, layer1_size);
-        for(a = 0; a < fourcorner_size; a++){
-            fprintf(fo, "%s ", fourcorner_array[a]);
-            if (binary)
-                for (b = 0; b < layer1_size; b++) fwrite(&synfourcorner[a * layer1_size + b], sizeof(real), 1, fo);
-            else
-                for (b = 0; b < layer1_size; b++) fprintf(fo, "%lf ", synfourcorner[a * layer1_size + b]);
-            fprintf(fo, "\n");
-        }
-        fclose(fo);
-    }
     free(table);
     free(pt);
     DestroyVocab();
@@ -732,12 +698,12 @@ int main(int argc, char **argv) {
         printf("\t\tSet the debug mode (default = 2 = more info during training)\n");
         printf("\t-binary <int>\n");
         printf("\t\tSave the resulting vectors in binary moded; default is 0 (off)\n");
-        printf("\t-fourcorner <file>\n");
+        printf("\t-fc <file>\n");
         printf("\t\tUse fourcorner list from <file>\n");
-        printf("\t-char2fourcorner <file>\n");
+        printf("\t-char2fc <file>\n");
         printf("\t\tObtain the mapping between characters and their fourcorners from <file>\n");
         printf("\nExamples:\n");
-        printf("./jwe -train wiki_process.txt -output-word word_vec -output-char char_vec -output-fourcorner fourcorner_vec -size 200 -window 5 -sample 1e-4 -negative 10 -iter 100 -threads 8 -min-count 5 -alpha 0.025 -binary 0 -fourcorner ../subcharacter/fourcorner.txt -char2fourcorner ../subcharacter/char2fourcorner.txt\n\n");
+        printf("./fcwe -train **[train-data-localtion]** -output **[output-directory]**/FCWE.txt -size 200 -window 5 -sample 1e-4 -negative 10 -iter 100 -threads 16 -min-count 5 -alpha 0.025 -binary 0 -fc **[subcharacter-file-location]**/FCWE-fc.txt -char2fc **[subcharacter-file-location]**/FCWE-char2fc.txt ");
         return 0;
     }
     output_word[0] = 0;
@@ -746,9 +712,7 @@ int main(int argc, char **argv) {
     if ((i = ArgPos((char *)"-debug", argc, argv)) > 0) debug_mode = atoi(argv[i + 1]);
     if ((i = ArgPos((char *)"-binary", argc, argv)) > 0) binary = atoi(argv[i + 1]);
     if ((i = ArgPos((char *)"-alpha", argc, argv)) > 0) alpha = atof(argv[i + 1]);
-    if ((i = ArgPos((char *)"-output-word", argc, argv)) > 0) strcpy(output_word, argv[i + 1]);
-    if ((i = ArgPos((char *)"-output-char", argc, argv)) > 0) strcpy(output_char, argv[i + 1]);
-    if ((i = ArgPos((char *)"-output-fc", argc, argv)) > 0) strcpy(output_fourcorner, argv[i + 1]);
+    if ((i = ArgPos((char *)"-output", argc, argv)) > 0) strcpy(output_word, argv[i + 1]);
     if ((i = ArgPos((char *)"-fc", argc, argv)) > 0) strcpy(fourcorner_file, argv[i + 1]);
     if ((i = ArgPos((char *)"-char2fc", argc, argv)) > 0) strcpy(char2fourcorner_file, argv[i + 1]);
     if ((i = ArgPos((char *)"-window", argc, argv)) > 0) window = atoi(argv[i + 1]);
