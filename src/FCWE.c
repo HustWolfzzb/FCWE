@@ -673,10 +673,6 @@ int main(int argc, char **argv) {
         printf("\t\tUse text data from <file> to train the model\n");
         printf("\t-output-word <file>\n");
         printf("\t\tUse <file> to save the resulting word vectors\n");
-        printf("\t-output-char <file>\n");
-        printf("\t\tUse <file> to save the resulting character vectors\n");
-        printf("\t-output-fourcorner <file>\n");
-        printf("\t\tUse <file> to save the resulting fourcorner vectors\n");
         printf("\t-size <int>\n");
         printf("\t\tSet size of word vectors; default is 200\n");
         printf("\t-window <int>\n");
