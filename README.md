@@ -1,6 +1,6 @@
 # FCWE
-Enhancing Chinese Word Embedding by Introducing Morphological Information of Four Corners Method
-Joint Embeddings of Chinese Words, Characters, and Four Corner Codes
+>Enhancing Chinese Word Embedding by Introducing Morphological Information of Four Corners Method
+>Joint Embeddings of Chinese Words, Characters, and Four Corner Codes
 
 
 ## [Four Corner Method](https://en.wikipedia.org/wiki/Four-Corner_Method) ##
@@ -8,8 +8,11 @@ Joint Embeddings of Chinese Words, Characters, and Four Corner Codes
 * Traditional	 	
 
 	一橫二垂三點捺，
+	
 	點下帶橫變零頭，
+	
 	叉四插五方塊六，
+	
 	七角八八小是九。
 
 -----
@@ -17,8 +20,11 @@ Joint Embeddings of Chinese Words, Characters, and Four Corner Codes
 * Simplified	 
 	
     一横二垂三点捺，
-    点下带横变零头，192:cwe zhangzhaobo$ ./word_analogy /Users/zhangzhaobo/Downloads/2JWE-p3.txt /Users/zhangzhaobo/CLionProjects/FCWE/data/morphological.txt
+    
+    点下带横变零头，
+    
     叉四插五方块六，
+    
     七角八八小是九。
 
 -----
@@ -26,17 +32,24 @@ Joint Embeddings of Chinese Words, Characters, and Four Corner Codes
 * Pinyin	 
 	
     Yī héng, èr chuí, sān diǎn, nà;
+    
     Diǎn xià dài héng, biàn líng tou;
+    
     Chǎ sì, chā wǔ, fāng kuài liù;
+    
     Qī jiǎo, bā ba, xiǎo shì jiǔ.
+    
 
 -----
 
 * Meaning
 
     1 for horizontal, 2 vertical, 3 is a dot;
+    
     a dot over a horizontal, or already another corner, is 0;
+    
     crossing is 4, crossing more than one is 5, a box is 6;
+    
     7 for a corner, 八 (shape of '8' character) is 8, and 小 is 9.
 
 -----
