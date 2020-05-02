@@ -1,4 +1,5 @@
 # FCWE
+Enhancing Chinese Word Embedding by Introducing Morphological Information of Four Corners Method
 Joint Embeddings of Chinese Words, Characters, and Four Corner Codes
 
 
