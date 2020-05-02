@@ -1,5 +1,6 @@
 # FCWE
 >Enhancing Chinese Word Embedding by Introducing Morphological Information of Four Corners Method
+
 >Joint Embeddings of Chinese Words, Characters, and Four Corner Codes
 
 
@@ -317,7 +318,6 @@ The four corner number comes from [four-corner-method Feature](https://github.co
 
 
 
-
 ## Full documentation ##
 Invoke a command without arguments to list available arguments and their default values:
 
@@ -326,7 +326,7 @@ Invoke a command without arguments to list available arguments and their default
 
 	* The Following arguments are mandatory:
 		-train              training file path
-		-output         output file path
+		-output             output file path
 		-fc                 set of all four corner codes
 		-char2fc            characters to four corner codes
 
@@ -337,12 +337,12 @@ Invoke a command without arguments to list available arguments and their default
 
 	    --> The following arguments for training are optional:
             -binary              save the resulting vectors in binary moded; default:[0] (off)
-            -alpha                 learning rate default:[0.025]
+            -alpha               learning rate default:[0.025]
             -size                size of word vectors default:[200]
-            -window                 size of the context window default:[5]
-            -iter              number of epochs default:[100]
-            -negative                number of negatives sampled default:[10]
-            -sample             number of threads default:[16]
+            -window              size of the context window default:[5]
+            -iter                number of epochs default:[100]
+            -negative            number of negatives sampled default:[10]
+            -sample              number of threads default:[16]
 		
 		
 ## References ##
