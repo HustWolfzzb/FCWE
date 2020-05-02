@@ -299,7 +299,7 @@ The four corner number comes from [four-corner-method Feature](https://github.co
 	......
 	......
 
-I provided a feature file for the test，path is `FCWE/subcharacter/FCWE-char2fc.txt`.
+> I provided a complete lookup-table for characters in corpus，path is `FCWE/subcharacter/FCWE-char2fc.txt`.
 
 
 
@@ -310,18 +310,18 @@ Invoke a command without arguments to list available arguments and their default
 	Here is the help information! Usage:
 
 
-	The Following arguments are mandatory:
+	* The Following arguments are mandatory:
 		-train              training file path
 		-output         output file path
 		-fc                 set of all four corner codes
 		-char2fc            characters to four corner codes
 
-	The Following arguments are optional:
+	* The Following arguments are optional:
        
-	    The following arguments for the dataset corpus are optional:
+	    --> The following arguments for the dataset corpus are optional:
 	        -min-count           minimal number of word 
 
-	    The following arguments for training are optional:
+	    --> The following arguments for training are optional:
             -binary              save the resulting vectors in binary moded; default:[0] (off)
             -alpha                 learning rate default:[0.025]
             -size                size of word vectors default:[200]
