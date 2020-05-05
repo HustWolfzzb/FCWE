@@ -56,26 +56,5 @@ if __name__ == '__main__':
     input_file = options.input
     save_path = options.output
     # we check the input_path and if it is wrong, we will search match file in the directory.
-    if (not os.path.isfile(input_file)) or input_file.find('zhwiki') == -1:
-        flag = 
-        cwd = os.getcwd()
-        file_dir = os.listdir()
-        for f in file_dir:
-            if f.find('zhwiki') != -1 and os.path.isfile(f):
-                input_file = os.path.join(cwd,f)
-                break
-            elif os.path.isdir(f):
-                subd = os.path.join(cwd,f)
-                for subf in os.listdir(subd):
-                    subf = os.path.join(subd,subf)
-                    if subf.find('zhwiki') != -1 and os.path.isfile(subf):
-                        input_file = subf
-                        break
-            else:
-                continue
-
-    if (not os.path.isfile(input_file)) or input_file.find('zhwiki') == -1:
-        print('please give us a filename with \"zhwiki\" ')
-
     wiki_process(input_file, save_path)
     # >>> 已获取0篇文章: 46it [00:02, 16.40it/s]
