@@ -116,25 +116,30 @@ FCWE:
 ## Data Processing ##
 
 
->zhWiki contains 271420881 tokens and we extract 766723 words whose word frequency is higher than 5 to keep the same min-count parameter with JWE.
-
->THUCNews contains 308120464 tokens and 223862 words with more than 15 occurrences, Beacause there are too many rare eneities in news collections which will introduce interference.
-
 -------
 
+
 #### 1. Chinese WikiMedia Dump
+
+>zhWiki contains 271420881 tokens and we extract 766723 words whose word frequency is higher than 5 to keep the same min-count parameter with JWE.
+
 
 Download [Wikipedia-dump : zhwiki-latest-pages-articles.xml.bz2](https://dumps.wikimedia.org/zhwiki/latest/) as the input_file
 
 
 ```python
+"""
+all files and example corpus in 'data/data-process' directory 
+"""
+
+
 import os
 # you can change the enviroment here
 pythonenv = 'python3' 
 
 # set the input_file(Wikipedia-dump) and output_file(set a dataset name)
 input_file = 'zhwiki-20200301-pages-articles-multistream.xml.bz2'
-output_file = 'split_wiki.txt'
+output_file = 'split-wiki.txt'
 
 # tmpfile name (we suggest not to change)
 tmp1_file = 'tmp1-wiki_origin-pattern-data.txt'
@@ -152,13 +157,20 @@ os.system(pythonenv + ' clean-corpus.py --input '+ tmp2_file +' --output ' + out
 
 #### 2. THUCNews
 
+>THUCNews contains 308120464 tokens and 223862 words with more than 15 occurrences, Beacause there are too many rare eneities in news collections which will introduce interference.
+
+
 Download [THUCNews.zip](http://thuctc.thunlp.org/message) from [thunlp](http://thuctc.thunlp.org/#%E4%B8%AD%E6%96%87%E6%96%87%E6%9C%AC%E5%88%86%E7%B1%BB%E6%95%B0%E6%8D%AE%E9%9B%86THUCNews)
 
 unzip the THUCNews.zip and get a directory as the cmd input_Dir
 
 ```python
+
 """
 THUCNews is a news collection dataset, its processing progress is easier than Wiki
+
+all files and example corpus in 'data/data-process' directory 
+
 """
 
 
@@ -209,24 +221,26 @@ This will create the fcwe binary and also all relevant libraries. (In cmake-budl
 ```python
 '''
 we use different source code to generate word vector which make it will throw error when evalute the analogy task with some embedding file. Therefore, we prepare two test codes to keep it normal.
+
+all files and example corpus in 'data/data-process' directory 
 '''
 import os
 test_file = 'your embedding file'
 
 # Analogy 1124
-os.system('python word_analogy.py -a data/analogy1.txt -e '+test_file)
-os.system('python word_analogy.py -a data/analogy.txt -e '+test_file)
-os.system('python word_analogy.py -a data/analogy-n.txt -e '+test_file)
+os.system('python word_analogy.py -a analogy1.txt -e '+test_file)
+os.system('python word_analogy.py -a analogy.txt -e '+test_file)
+os.system('python word_analogy.py -a analogy-n.txt -e '+test_file)
 
 # word_analogy binary exec file will be created in 'src' folder when make fcwe binary 
-os.system('./word_analogy '+test_file + ' data/analogy1.txt ')
-os.system('./word_analogy '+test_file + ' data/analogy.txt ')
-os.system('./word_analogy '+test_file + ' data/analogy-n.txt ')
+os.system('./word_analogy '+test_file + ' analogy1.txt ')
+os.system('./word_analogy '+test_file + ' analogy.txt ')
+os.system('./word_analogy '+test_file + ' analogy-n.txt ')
 
 # word_similarity with three kind test datasets.
-os.system('python word_sim.py -s data/240.txt -e '+test_file)
-os.system('python word_sim.py -s data/297.txt -e '+test_file)
-os.system('python word_sim.py -s data/SimLex-999_translated.txt -e '+test_file)
+os.system('python word_sim.py -s 240.txt -e '+test_file)
+os.system('python word_sim.py -s 297.txt -e '+test_file)
+os.system('python word_sim.py -s SimLex-999_translated.txt -e '+test_file)
 
 ```
 
