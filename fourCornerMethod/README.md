@@ -56,9 +56,9 @@
 
 ## Examleple
 
-![Sructure of the Four CornerMethod. The example Chinese character法(method/law/France) is consists of five numbers34131](http://45.59.116.221/fourcorner.png)
+![](http://45.59.116.221/fourcorner.png)
 
-
+> Sructure of the Four CornerMethod. The example Chinese character法(method/law/France) is consists of five numbers34131
 
 ## Get Chinese four corner codes ##
 
@@ -111,36 +111,10 @@ The four corner number comes from [four-corner-method Feature](https://github.co
 
 
 
-## Full documentation ##
-Invoke a command without arguments to list available arguments and their default values:
-
-	Here is the help information! Usage:
-
-
-	* The Following arguments are mandatory:
-		-train              training file path
-		-output             output file path
-		-fc                 set of all four corner codes
-		-char2fc            characters to four corner codes
-
-	* The Following arguments are optional:
-       
-	    --> The following arguments for the dataset corpus are optional:
-	        -min-count           minimal number of word 
-
-	    --> The following arguments for training are optional:
-            -binary              save the resulting vectors in binary moded; default:[0] (off)
-            -alpha               learning rate default:[0.025]
-            -size                size of word vectors default:[200]
-            -window              size of the context window default:[5]
-            -iter                number of epochs default:[100]
-            -negative            number of negatives sampled default:[10]
-            -sample              number of threads default:[16]
-		
 		
 ## References ##
-[1] [Cao, Shaosheng, et al. "cw2vec: Learning Chinese Word Embeddings with Stroke n-gram Information." (2018). ](http://www.statnlp.org/wp-content/uploads/papers/2018/cw2vec/cw2vec.pdf)   
-
+[1] [https://github.com/howl-anderson/four_corner_method](https://github.com/howl-anderson/four_corner_method)   
+[2] [https://en.wikipedia.org/wiki/Four-Corner_Method](https://en.wikipedia.org/wiki/Four-Corner_Method)
 
 ## Question ##
 

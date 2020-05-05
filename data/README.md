@@ -23,7 +23,7 @@
 
 * 'data-process/': all code for clean origin data.
 
-* there should be a file 'zhwiki-20200301-pages-articles-multistream.xml.bz2', but it is too big
+* there should be a file 'zhwiki-20200301-pages-articles-multistream.xml.bz2', but it is too big, so I put a 'shot-wiki-without-tab_for_test_code.txt' instead of the big one.
 
 ## Data Processing ##
 
@@ -40,7 +40,7 @@ Download [Wikipedia-dump : zhwiki-latest-pages-articles.xml.bz2](https://dumps.w
 
 ```python
 """
-all files and example corpus in 'data/data-process' directory 
+all files and example corpus in 'data-process' directory 
 """
 
 
@@ -82,7 +82,7 @@ unzip the THUCNews.zip and get a directory as the cmd input_Dir
 """
 THUCNews is a news collection dataset, its processing progress is easier than Wiki
 
-all files and example corpus in 'data/data-process' directory 
+all files and example corpus in 'data-process' directory 
 
 """
 
