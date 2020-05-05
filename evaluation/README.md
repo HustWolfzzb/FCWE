@@ -18,9 +18,12 @@
 
 #### 1. Data Info
 
-> WA-953 from [CWE(Chen et al.,2015)](https://github.com/Leonard-Xu/CWE) we didn't use this
+> WA-953 from [CWE(Chen et al.,2015)](https://github.com/Leonard-Xu/CWE)
+
 > WA-297 from [JWE(Yu et al.,2017)](https://github.com/HKUST-KnowComp/JWE)
+
 > WA-7636 from [Analogy-CA8(Shenet al.,2018)](https://github.com/Embedding/Chinese-Word-Vectors)
+
 
 
 |                  | ~~wa-953~~ | wa-1124 | wa-7676 | ws-240 | ws-297 | sl-999 |
@@ -46,12 +49,16 @@ test_file = 'your embedding file'
 
 # Analogy 1124
 os.system('python word_analogy.py -a analogy1.txt -e '+test_file)
+# Analogy 953
 os.system('python word_analogy.py -a analogy.txt -e '+test_file)
+# Analogy 7636
 os.system('python word_analogy.py -a analogy-n.txt -e '+test_file)
 
 # word_analogy binary exec file will be created in 'src' folder when make fcwe binary 
 os.system('./word_analogy '+test_file + ' analogy1.txt ')
+# Analogy 953
 os.system('./word_analogy '+test_file + ' analogy.txt ')
+# Analogy 7636
 os.system('./word_analogy '+test_file + ' analogy-n.txt ')
 
 # word_similarity with three kind test datasets.

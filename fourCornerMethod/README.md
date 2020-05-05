@@ -58,7 +58,7 @@
 
 ![](http://45.59.116.221/fourcorner.png)
 
-> Sructure of the Four CornerMethod. The example Chinese character法(method/law/France) is consists of five numbers34131
+> Sructure of the Four CornerMethod. The example Chinese character 法 (method/law/France) is consists of five numbers 34131
 
 ## Get Chinese four corner codes ##
 
