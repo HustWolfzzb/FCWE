@@ -374,7 +374,13 @@ FCWE:
 ```
 
 ## References ##
-[1] [Cao, Shaosheng, et al. "cw2vec: Learning Chinese Word Embeddings with Stroke n-gram Information." (2018). ](http://www.statnlp.org/wp-content/uploads/papers/2018/cw2vec/cw2vec.pdf)   
+[1] [ Yu, Jinxing, et al. Joint embeddings of chinese words,characters, and fine-grained subcharacter components ( 2017)](http://www.cse.ust.hk/~yqsong/papers/2017-EMNLP-ChineseEmbedding.pdf)
+
+[2] [Cao, Shaosheng, et al. "cw2vec: Learning Chinese Word Embeddings with Stroke n-gram Information." (2018). ](http://www.statnlp.org/wp-content/uploads/papers/2018/cw2vec/cw2vec.pdf)   
+
+[3] [Chen, Xinxiong, et, al. Joint learningof character and word embeddings.(2015)](http://nlp.csai.tsinghua.edu.cn/~lzy/publications/ijcai2015_character.pdf)
+
+[4] [L, Shen, et, al.  Analogical reasoning on Chinese morphological and semantic relations.](https://www.aclweb.org/anthology/P18-2023/)
 
 
 ## Question ##
