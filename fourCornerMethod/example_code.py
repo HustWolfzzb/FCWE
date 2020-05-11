@@ -12,4 +12,4 @@ if __name__ == '__main__':
 
 	# you can change the enviroment here
 	pythonenv = "/Users/zhangzhaobo/PycharmProjects/nlpCode/venv/bin/python"
-	os.system(pythonenv + ' get_all_four_corner.py --word_dict newRadical.txt --output 4corner.txt --sort 1')
+	os.system(pythonenv + ' get_all_four_corner.py --word_dict c2sr.txt --output 4corner.txt --sort 1')

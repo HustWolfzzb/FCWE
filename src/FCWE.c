@@ -31,7 +31,7 @@
 #define MAX_CHINESE 0x9FA5
 // number of chinese characters
 #define CHAR_SIZE (MAX_CHINESE - MIN_CHINESE + 1)
-#define FOURCORNER_SIZE 26
+#define FOURCORNER_SIZE 100
 // Maximum 30 * 0.7 = 21M words in the vocabulary
 const int vocab_hash_size = 30000000;
 
@@ -50,7 +50,7 @@ struct vocab_word{
 };
 
 struct char_fourcorner{
-    int *fourcorner, fourcorner_size;  // fourcorner[i]  : the i -th fourcorner   fourcorner_size, the number of fourcorners
+    int *fourcorner, fourcorner_size;  // fourcorner[i]  : the i -th fourcorner   fourcorner_size, the number of fourcorners。default:6
 };
 
 struct fourcorners{
@@ -481,7 +481,7 @@ void *TrainModelThread(void *id) {
                 if (last_word == -1) continue;
                 for (c = 0; c < layer1_size; c++)
                     neuword[c] += synword[c + last_word * layer1_size];
-                //下面这个for是jwe比word2vec多出来的，关于字符和子字符的处理
+                //下面这个for是窗口数据处理过程中word2vec多出来的，关于字符和子字符的处理
                 for (c = 0; c < vocab[last_word].character_size; c++) {
                     char_id = vocab[last_word].character[c];
                     char_id_list[char_list_cnt++] = char_id;
@@ -491,7 +491,7 @@ void *TrainModelThread(void *id) {
                 cw++;
             }
         // use the target character's fourcorner information
-        // 比word2vec多出来的一部分，用来确定是否要加入目标词的组件信息
+        // 比word2vec多出来的一部分，用来确定是否要加入目标词的信息
         last_word = sen[sentence_position];
         for (c = 0; c < vocab[last_word].character_size; c++) {
             char_id = vocab[last_word].character[c];
@@ -566,7 +566,6 @@ void *TrainModelThread(void *id) {
                 //update syn1neg
                 for (c = 0; c < layer1_size; c++)
                     syn1neg[c + l2] += g1 * neuword[c] + g2 * neuchar[c] + g3 * neufourcorner[c];
-
             }
             // back propagate   hidden -> input
             // 更新上下文几个词的向量
